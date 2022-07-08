@@ -25,6 +25,12 @@ jobs:
   ci_base:
     uses: Energinet-DataHub/.github/.github/workflows/ci-base.yml@7.6.0
   
+  csharp_build:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
   terraform_validate:
     uses: Energinet-DataHub/.github/.github/workflows/terraform-validate.yml@7.6.0
     with:
