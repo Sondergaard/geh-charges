@@ -36,8 +36,11 @@ jobs:
         with:
           dotnet-version: '6.0.x'
 
-      - name: restore nuget packages
+      - name: Restore nuget packages
         run: dotnet restore source/GreenEnergyHub.Charges/GreenEnergyHub.Charges.sln
+
+      - name: Build solution
+        run: dotnet build source/GreenEnergyHub.Charges/GreenEnergyHub.Charges.sln --no-restore --configuration Release
 
   terraform_validate:
     uses: Energinet-DataHub/.github/.github/workflows/terraform-validate.yml@7.6.0
