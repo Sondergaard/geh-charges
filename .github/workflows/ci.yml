@@ -20,6 +20,9 @@ on:
     branches:
       - main
 
+env:
+  TestCommonConnectionString: 'Server=localhost;Database=master;User Id=sa;Password=Pass123!;'
+
 jobs:
   # Markdown, links and spell checking
   ci_base:
@@ -35,6 +38,12 @@ jobs:
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: '6.0.300'
+
+      - name: Run SQL server
+        uses: addnab/docker-run-action@v3
+        with:
+          image: mcr.microsoft.com/mssql/server:2019-latest
+          options: -e 'ACCEPT_EULA=Y' -e "SA_PASSWORD=Pass123!" -p 1433:1433 --name sqlserver -d
 
       - name: Restore nuget packages
         run: dotnet restore source/GreenEnergyHub.Charges/GreenEnergyHub.Charges.sln
